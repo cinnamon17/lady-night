@@ -43,6 +43,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $profile_picture_third = null;
 
+    #[ORM\Column(type: Types::BIGINT, nullable: true)]
+    private ?string $tokens = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -172,4 +175,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getTokens(): ?string
+    {
+        return $this->tokens;
+    }
+
+    public function setTokens(?string $tokens): self
+    {
+        $this->tokens = $tokens;
+
+        return $this;
+    }
+
 }
