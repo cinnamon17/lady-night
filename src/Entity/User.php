@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -26,6 +27,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $interests = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $profile_picture = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $profile_picture_second = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $profile_picture_third = null;
 
     public function getId(): ?int
     {
@@ -95,5 +111,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getInterests(): ?string
+    {
+        return $this->interests;
+    }
+
+    public function setInterests(?string $interests): self
+    {
+        $this->interests = $interests;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profile_picture;
+    }
+
+    public function setProfilePicture(?string $profile_picture): self
+    {
+        $this->profile_picture = $profile_picture;
+
+        return $this;
+    }
+
+    public function getProfilePictureSecond(): ?string
+    {
+        return $this->profile_picture_second;
+    }
+
+    public function setProfilePictureSecond(?string $profile_picture_second): self
+    {
+        $this->profile_picture_second = $profile_picture_second;
+
+        return $this;
+    }
+
+    public function getProfilePictureThird(): ?string
+    {
+        return $this->profile_picture_third;
+    }
+
+    public function setProfilePictureThird(?string $profile_picture_third): self
+    {
+        $this->profile_picture_third = $profile_picture_third;
+
+        return $this;
     }
 }
