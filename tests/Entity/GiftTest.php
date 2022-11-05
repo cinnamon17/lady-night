@@ -20,24 +20,17 @@ class GiftTest extends KernelTestCase
         $gift->setHearts(5);
         $gift->setKisses(8);
 
-        $user = new User();
-        $user->setEmail('asd@gmail.com');
-        $user->setRoles(['ROLE_USER']);
-        $user->setPassword('asd');
-        $user->setInterests('I love soup');
-        $user->setName('juan');
-        $user->setProfilePicture('www.google.com');
-        $user->setProfilePictureSecond('www.google.com');
-        $user->setProfilePictureThird('www.google.com');
-        $user->setTokens('100');
-        $gift->setUsers($user);
+        //retrieve user from database
+        $userRecord = $entityManager->getRepository(User::class)->findOneBy(['email' => 'a@gmail.com']);
+
+        //relate user to gift setting user_id field
+        $gift->setUsers($userRecord);
+
 
         $entityManager->persist($gift);
-        $entityManager->persist($user);
-
         $entityManager->flush();
 
-        $giftRecord = $entityManager->getRepository(Gift::class)->findOneBy(['users' => $user->getId()]);
+        $giftRecord = $entityManager->getRepository(Gift::class)->findOneBy(['users' => $userRecord->getId()]);
 
         $this->assertEquals(2, $giftRecord->getFires());
         $this->assertEquals(5, $giftRecord->getHearts());
