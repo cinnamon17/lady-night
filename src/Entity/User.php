@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -45,6 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::BIGINT, nullable: true)]
     private ?string $tokens = null;
+
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Gift::class)]
+    private Collection $gifts;
+
+    public function __construct()
+    {
+        $this->gifts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -184,6 +194,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTokens(?string $tokens): self
     {
         $this->tokens = $tokens;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Gift>
+     */
+    public function getGifts(): Collection
+    {
+        return $this->gifts;
+    }
+
+    public function addGift(Gift $gift): self
+    {
+        if (!$this->gifts->contains($gift)) {
+            $this->gifts->add($gift);
+            $gift->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGift(Gift $gift): self
+    {
+        if ($this->gifts->removeElement($gift)) {
+            // set the owning side to null (unless already changed)
+            if ($gift->getUsers() === $this) {
+                $gift->setUsers(null);
+            }
+        }
 
         return $this;
     }
