@@ -5,7 +5,7 @@
 
 {% block body %}
 
-    {% if app.user %}
+    {% if is_granted('ROLE_USER')%}
 
         <meta http-equiv="refresh" content="0; URL={{ path('home') }}" />
 
