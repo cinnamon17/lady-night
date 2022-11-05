@@ -51,9 +51,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Gift::class)]
     private Collection $gifts;
 
+    #[ORM\ManyToMany(targetEntity: Message::class, inversedBy: 'users')]
+    private Collection $messages;
+
     public function __construct()
     {
         $this->gifts = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,6 +228,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $gift->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        $this->messages->removeElement($message);
 
         return $this;
     }
