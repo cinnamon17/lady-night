@@ -29,4 +29,22 @@ class LoginControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         
     }
+
+    public function test_user_can_logout(){
+
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+
+        $testUser = $userRepository->findOneByEmail('a@gmail.com');
+
+        $client->loginUser($testUser);
+
+        $client->request('GET', '/home');
+
+        $this->assertResponseIsSuccessful();
+
+        $client->request('GET', '/logout');
+        
+        $this->assertResponseStatusCodeSame(302);
+    }
 }
