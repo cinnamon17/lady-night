@@ -140,6 +140,27 @@
             "src/Kernel.php"
         ]
     },
+    "symfony/mailer": {
+        "version": "6.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.3",
+            "ref": "97a61eabb351d7f6cb7702039bcfe07fe9d7e03c"
+        },
+        "files": [
+            "config/packages/mailer.yaml"
+        ]
+    },
+    "symfony/mailgun-mailer": {
+        "version": "6.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "addcb559b32d9dbb4843826b063565e1b15a2a57"
+        }
+    },
     "symfony/maker-bundle": {
         "version": "1.47",
         "recipe": {
@@ -214,6 +235,18 @@
             "templates/base.html.twig"
         ]
     },
+    "symfony/validator": {
+        "version": "6.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.3",
+            "ref": "c32cfd98f714894c4f128bb99aa2530c1227603c"
+        },
+        "files": [
+            "config/packages/validator.yaml"
+        ]
+    },
     "symfony/web-profiler-bundle": {
         "version": "6.1",
         "recipe": {
@@ -226,5 +259,8 @@
             "config/packages/web_profiler.yaml",
             "config/routes/web_profiler.yaml"
         ]
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.12.0"
     }
 }
