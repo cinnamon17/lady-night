@@ -2,7 +2,6 @@
 
 namespace App\Tests\Controller;
 
-use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -23,7 +22,10 @@ class RegisterControllerTest extends WebTestCase
         $client = static::createClient();
         $entityManager = static::getContainer()->get(UserRepository::class);
 
-        $crawler = $client->request('POST', '/register');
+        $crawler = $client->request('GET', '/register');
+
+        $client->followRedirects();
+
         $buttonCrawlerNode = $crawler->selectButton('Register');
         $form = $buttonCrawlerNode->form();
 
@@ -31,17 +33,19 @@ class RegisterControllerTest extends WebTestCase
 
         $form[$name."[email]"] = 'b@gmail.com';
         $form[$name."[name]"] = 'cinnamon';
-        $form[$name."[password]"] = '$2y$13$6SYanNxcPi56uP.dRSPr3.um.Ds0ooA73Fyi.PdYTgR9bPse8vQYC';
+        $form[$name."[plainPassword]"] = '$2y$13$6SYanNxcPi56uP.dRSPr3.um.Ds0ooA73Fyi.PdYTgR9bPse8vQYC';
+        $form[$name."[agreeTerms]"] = '1';
 
+        $client->followRedirects();
 
         $client->submit($form);
 
-        $savedUser = $entityManager->findOneByEmail('b@gmail.com');
+        $this->assertResponseIsSuccessful();
 
-        $this->assertEquals('b@gmail.com', $savedUser->getEmail);
-        $this->assertEquals('$2y$13$6SYanNxcPi56uP.dRSPr3.um.Ds0ooA73Fyi.PdYTgR9bPse8vQYC', $savedUser->getPassword);
-        $this->assertEquals('cinnamon', $savedUser->getName);
+        $userData = $entityManager->findOneBy(['email' => 'b@gmail.com']);
 
+        $this->assertEquals('b@gmail.com', $userData->getEmail());
+        $this->assertEquals('cinnamon', $userData->getName());
 
     }
 }
