@@ -5,7 +5,7 @@ namespace App\Tests\Controller;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class RegisterControllerTest extends WebTestCase
+class RegistrationControllerTest extends WebTestCase
 {
 
     public function test_register_route_exists(){
