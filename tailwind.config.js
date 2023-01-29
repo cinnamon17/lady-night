@@ -11,8 +11,8 @@ module.exports = {
     'cream': '#FAE8E0',
     'spear-mint': '#B6E2D3',
     'rose-water': '#D8A7B1',
-    'black': '#000000',
-    'white': '#ffffff',
+    'black': '#0E1318',
+    'white': '#FFFFFF',
 
       },
     extend: {},

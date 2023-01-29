@@ -12,10 +12,15 @@
     {% endif %}
 
 
-    <h1 class="absolute top-60 left-[43%] text-4xl">Camaras de sexo</h1>
+    <h1 class="">Camaras de sexo</h1>
 
-    <div class="w-auto h-screen flex items-center justify-center bg-[url('https://images.pexels.com/photos/1006310/pexels-photo-1006310.jpeg')] bg-contain">
-    <div class="w-min">
+    <div class="w-auto h-screen flex items-center justify-center">
+
+    <div class="">
+    <div class="w-min px-8 py-20 shadow-2xl shadow-black rounded-lg">
+
+    <h2 class="text-2xl text-center">Login</h2>
+
     <form action="{{ path('login') }}" method="post">
         <label for="username">Email</label>
         <input type="text" id="username" name="_username" value=" {{ last_username }}"/>
@@ -28,11 +33,14 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 
-        <button class="w-full h-10 mt-4 outline outline-1 bg-black text-white" type="submit">login</button>
+        <button class="w-full h-10 mt-4 text-white bg-black" type="submit">login</button>
     </form>
+
+        <p>I don't have an account <a href="{{ path('app_register') }}">sign up</a> </p>
     {% if error %}
         <div class="bg-hot-pink">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+    </div>
     </div>
     </div>
 {% endblock %}
