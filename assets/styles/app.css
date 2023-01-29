@@ -1,3 +1,13 @@
-body {
-    background-color: lightgray;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+:root {
+    --hot-pink: #EF7C8E;
+    --cream: #FAE8E0;
+    --spear-mint: #B6E2D3;
+    --rose-water: #D8A7B1;
+
+}
 }

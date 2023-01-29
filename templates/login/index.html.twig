@@ -11,16 +11,16 @@
 
     {% endif %}
 
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
+    <h1 class="absolute top-60 left-[43%] text-4xl">Camaras de sexo</h1>
 
+    <div class="w-auto h-screen flex items-center justify-center bg-[url('https://images.pexels.com/photos/1006310/pexels-photo-1006310.jpeg')] bg-contain">
+    <div class="w-min">
     <form action="{{ path('login') }}" method="post">
-        <label for="username">Email:</label>
+        <label for="username">Email</label>
         <input type="text" id="username" name="_username" value=" {{ last_username }}"/>
 
-        <label for="password">Password:</label>
+        <label for="password">Password</label>
         <input type="password" id="password" name="_password"/>
 
         <input type="hidden" name="_target_path" value="/home"/>
@@ -28,6 +28,11 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 
-        <button type="submit">login</button>
+        <button class="w-full h-10 mt-4 outline outline-1 bg-black text-white" type="submit">login</button>
     </form>
+    {% if error %}
+        <div class="bg-hot-pink">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    </div>
+    </div>
 {% endblock %}

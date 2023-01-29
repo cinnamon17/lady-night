@@ -7,6 +7,22 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+import Camera from './src/Camera.js';
+import Config from './src/Config.js';
 
 // start the Stimulus application
 import './bootstrap';
+
+function main() {
+
+    const camera = new Camera;
+    const config = new Config;
+
+    if(camera.checkDeviceSuport()){
+        camera.startStream(config.constraints);
+
+    }
+
+}
+
+main();
