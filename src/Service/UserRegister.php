@@ -21,24 +21,29 @@ class UserRegister {
 
     public function __construct(UserPasswordHasherInterface $userPasswordHasherInterface, EntityManagerInterface $entityManager, EmailVerifier $emailVerifier)
     {
-        
+
         $this->userPasswordHasher = $userPasswordHasherInterface;
         $this->entityManager = $entityManager;
         $this->emailVerifier = $emailVerifier;
     }
 
-    public function setPassword(User $user, Form $form){
+    public function setUser(Form $form){
 
-            $user->setPassword(
-                $this->userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+        $user = new User();
+        $user->setName($form->get('name')->getData());
+        $user->setEmail($form->get('email')->getData());
+        $user->setPassword($this->hashPassword($user, $form));
 
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
+        $this->registrationConfirmationEmail($user);
+
+    }
+
+    public function hashPassword(User $user, Form $form){
+
+                return $this->userPasswordHasher->hashPassword($user,$form->get('plainPassword')->getData());
     }
 
     public function registrationConfirmationEmail(User $user){
