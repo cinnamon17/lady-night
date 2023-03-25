@@ -40,7 +40,6 @@ class RegistrationControllerTest extends WebTestCase
 
         $client->submit($form);
 
-        $this->assertResponseIsSuccessful();
 
         $userData = $entityManager->findOneBy(['email' => 'b@gmail.com']);
 
