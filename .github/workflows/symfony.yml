@@ -39,7 +39,7 @@ jobs:
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Set database
       env:
-        DATABASE_URL: ${{ DATABASE_URL }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
       run: php bin/console --env=test doctrine:schema:create
     - name: create fixtures to test
       run: php bin/console --env=test doctrine:fixtures:load
