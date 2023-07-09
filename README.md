@@ -29,5 +29,8 @@
 >
 - load test fixtures
 > php bin/console --env=test doctrine:fixtures:load
->
+
+## Database structure
+
+![img](./bdd-diagram.png)
 
